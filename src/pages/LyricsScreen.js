@@ -12,10 +12,24 @@ import Grid from '@mui/material/Grid'; // Grid version 1
 export default function LyricsScreen() {
 
     const location = useLocation();
+
+    
+
+    // var [FullLyrics,setFullLyrics] = useState("");
+
+    //  async function onPageLoad (){
+    //     await location.state.paras.map((line,index) =>{
+
+    //         setFullLyrics(FullLyrics + line.words + ". ");
+    //         console.log(FullLyrics);
+    
+    //       })
+    // }
+    
     
 
     return (
-        <div>
+        <div >
             <Navbar />
             <Header
                 albumimg={location.state.albumimg}
@@ -28,10 +42,19 @@ export default function LyricsScreen() {
                     <div className="col-6">
                         <Lyrics 
                             paras = {location.state.paras}
+                            // FullLyrics = {location.state.FullLyrics}
 
                         />
                     </div>
                     <div className="col-6">
+                    
+
+
+                   <p className="lyricsMeaning">
+                        {location.state.meaningresult}
+                   </p> 
+
+                    
 
                     </div>  
                 </div>

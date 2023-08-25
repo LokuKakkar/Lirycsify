@@ -17,6 +17,9 @@ export default function Cards(props) {
 
   const [line,setline] = useState("");
   const [paras, setparas] = useState([]);
+  const [meaningresult, setmeaningresult] = useState("");
+
+  // var [FullLyrics , setFullLyrics] = useState("");
   
   const lyricFetch = () =>{
     
@@ -26,9 +29,54 @@ export default function Cards(props) {
     .then((response) => response.json())
     .then((datas) => {setparas(datas.lines);
     })
+    // .then((data) =>{
+    //   paras.map((line,index) =>{
+
+    //     setFullLyrics(FullLyrics + line.words + ". ");
+    //     console.log(FullLyrics);
+
+    //   })
+    // })
     .catch((err) => console.error(err));
 
   }
+
+
+
+
+  const meaningFetch =() =>{
+    // console.log("MAA chuda")
+
+    var myHeaders = new Headers();
+    myHeaders.append("apikey", "jMpG65nv14gNAKdaaRDXUeBCQAlgOWHn");
+
+    var raw = "";
+
+    paras.map((line,index) =>{
+      return (
+        raw+=line.words + ". "
+      )
+    })
+
+    var requestOptions = {
+      method: 'POST',
+      redirect: 'follow',
+      headers: myHeaders,
+      body: raw.substring(0,1990)
+    };
+
+    fetch("https://api.apilayer.com/paraphraser", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        // console.log(result);
+        setmeaningresult(meaningresult + result.paraphrased);
+        // console.log(meaningresult);
+      })
+      
+      .catch(error => console.log('error', error));
+
+  }
+
 
   
   
@@ -42,14 +90,16 @@ export default function Cards(props) {
       songName : props.data.name ,
       albumName : props.data.albumOfTrack.name ,
       artistnames : props.data.artists ,
-      albumimg : props.data.albumOfTrack.coverArt.sources[0].url
+      albumimg : props.data.albumOfTrack.coverArt.sources[0].url,
+      meaningresult : meaningresult
+      // FullLyrics : FullLyrics
     }})
 
   }
   
 
   return (
-    <div style={{ padding: "10px", border: "none", maxHeight: "443px" }}>
+    <div style={{ padding: "10px", border: "none", maxHeight: "443px" }} onLoad={lyricFetch}>
       <div className="card album-cover" style={{ width: "18rem" }}>
         {/* <Link to={props.trackurl} style={{ textDecoration: 'none' , color: 'black'}}> */}
         {/* <Tilt tiltEnable={true} tiltMaxAngleX={0} scale={1.07} tiltReverse={true} > */}
@@ -62,12 +112,13 @@ export default function Cards(props) {
               className="card-img-top img-album-cover-img"
               alt="..."
               onMouseOver={lyricFetch}
+              onClick={meaningFetch}
               onDoubleClick={gotoLyricsScreen}
 
             >
             </img>
-            <div class="text-over-album-cover">
-              <div class="text" onClick={gotoLyricsScreen}> Get Lyrics </div>
+            <div className="text-over-album-cover">
+              <div className="text" onClick={gotoLyricsScreen}> Get Lyrics </div>
             </div>
 
         </div>

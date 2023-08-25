@@ -94,7 +94,7 @@ function Home() {
             return (
               <Tilt tiltEnable={false} scale={1.07} >
               <Cards
-                  key={index}
+                  // key={index}
                   className="card card-body m-2"
                   {...item}
                   trackurl={trackurl}

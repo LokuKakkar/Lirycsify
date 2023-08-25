@@ -41,13 +41,8 @@ const Header = (props) => {
               
             <Nav className="me-auto">
               
-             <p>
-             <Nav.Link href="/" style={{marginLeft : "40px" , color : "white" , opacity : "1"}}>   {props.songname} </Nav.Link>
-             </p> 
-             <p>
-             <Nav.Link href="/" style={{color : "white" , opacity : "1"}}>{props.albumname}  </Nav.Link>
-
-             </p>
+              <Nav.Link href="/" style={{marginLeft : "40px" , color : "white" , opacity : "1"}}>   {props.songname} </Nav.Link>
+              <Nav.Link href="/" style={{color : "white" , opacity : "1"}}>{props.albumname}  </Nav.Link>
               {/* <NavDropdown title="Categories" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#categories/react">
                   React
